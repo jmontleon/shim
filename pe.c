@@ -715,7 +715,12 @@ handle_image (void *data, unsigned int datasize,
 	CopyMem(buffer, data, context.SizeOfHeaders);
 
 	/* Flush the instruction cache for the region holding the image */
-	cache_invalidate(buffer, buffer + context.ImageSize);
+	// FIXME - This is causing and error linking:
+	// ld -o shimriscv64.so --hash-style=sysv -nostdlib -znocombreloc -T /home/jason/shim/elf_riscv64_efi.lds -shared -Bsymbolic -Lgnu-efi/riscv64/gnuefi -Lgnu-efi/riscv64/lib -LCryptlib -LCryptlib/OpenSSL gnu-efi/riscv64/gnuefi/crt0-efi-riscv64.o --build-id=sha1  --no-undefined shim.o globals.o mok.o netboot.o cert.o replacements.o tpm.o version.o errlog.o sbat.o sbat_data.o sbat_var.o pe.o pe-relocate.o httpboot.o csv.o load-options.o Cryptlib/libcryptlib.a Cryptlib/OpenSSL/libopenssl.a lib/lib.a gnu-efi/riscv64/lib/libefi.a gnu-efi/riscv64/gnuefi/libgnuefi.a -lefi -lgnuefi --start-group Cryptlib/libcryptlib.a Cryptlib/OpenSSL/libopenssl.a --end-group /usr/lib/gcc/riscv64-redhat-linux/14/libgcc.a lib/lib.a
+	// ld: pe.o: in function `handle_image':
+	// /home/jason/shim/pe.c:612:(.text+0x1726): undefined reference to `__riscv_flush_icache'
+	// make: *** [Makefile:153: shimriscv64.so] Error 1
+	//cache_invalidate(buffer, buffer + context.ImageSize);
 
 	*entry_point = ImageAddress(buffer, context.ImageSize, context.EntryPoint);
 	if (!*entry_point) {

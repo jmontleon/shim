@@ -15,10 +15,6 @@ typedef __builtin_va_list __builtin_sysv_va_list;
 #pragma GCC diagnostic pop
 #endif
 
-#ifndef GNU_EFI_USE_EXTERNAL_STDARG
-#define GNU_EFI_USE_EXTERNAL_STDARG
-#endif
-
 #ifdef SHIM_UNIT_TEST
 #include_next <stdarg.h>
 #endif

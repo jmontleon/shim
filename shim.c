@@ -31,6 +31,7 @@
 
 #include <Library/BaseCryptLib.h>
 
+#include <mok.h>
 #include <stdint.h>
 
 #define OID_EKU_MODSIGN "1.3.6.1.4.1.2312.16.1.2"

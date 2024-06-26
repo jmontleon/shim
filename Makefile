@@ -24,6 +24,7 @@ include $(TOPDIR)/include/coverity.mk
 include $(TOPDIR)/include/scan-build.mk
 include $(TOPDIR)/include/fanalyzer.mk
 
+CFLAGS += -DGNU_EFI_USE_REALLOCATEPOOL_ABI=0
 TARGETS	= $(SHIMNAME)
 TARGETS += $(SHIMNAME).debug $(MMNAME).debug $(FBNAME).debug
 ifneq ($(origin ENABLE_SHIM_HASH),undefined)

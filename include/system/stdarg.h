@@ -23,7 +23,7 @@ typedef __builtin_va_list __builtin_sysv_va_list;
 #include_next <stdarg.h>
 #endif
 
-#if defined(__aarch64__) || defined(__arm__) || defined(__i386__) || \
+#if defined(__aarch64__) || defined(__arm__) || defined(__i386__) || defined(__x86_64__) || \
 	defined(__i486__) || defined(__i686__) || defined(__COVERITY__) || defined(__riscv)
 
 typedef __builtin_va_list ms_va_list;
